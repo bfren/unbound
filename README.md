@@ -31,7 +31,7 @@ You can find a live example in my [Unbound Docker image](https://github.com/bfre
 
 ```Dockerfile
 # use tags to load the Unbound files - they are built for (and dynamically linked against) Alpine 3.24
-FROM quay.io/bfren-bin/unbound:1.26.2-261021 AS unbound
+FROM quay.io/bfren-bin/unbound:1.26.2-261106 AS unbound
 
 # load the same version of Alpine
 FROM alpine:3.24
