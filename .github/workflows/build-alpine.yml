@@ -1,7 +1,16 @@
 name: build-alpine
 
 on:
+  push:
+    branches: ['**']
+    tags-ignore: ['**']
   workflow_dispatch:
+
+# one run per branch at a time - a newer push cancels the older run, so it cannot finish last and overwrite the
+# newer images
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
