@@ -1,16 +1,30 @@
 name: build-alpine
 
 on:
+  push:
+    branches: ['**']
+    tags-ignore: ['**']
+    # docs-only pushes would rebuild the same VERSION, which main refuses
+    paths-ignore: ['**.md']
   workflow_dispatch:
+
+# one run per branch at a time - on other branches a newer push cancels the older run, so it cannot finish last and
+# overwrite the newer images; on main it waits, so a release is never cancelled halfway through tagging
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref_name != 'main' }}
 
 jobs:
   build:
+    strategy:
+      matrix:
+        unbound: [ "1.26.2" ]
     uses: bfren/docker/.github/workflows/build-bin.yml@main
     with:
       image: unbound
       build-args: |
-        UNBOUND=1.26.2
+        UNBOUND=${{ matrix.unbound }}
       tags: |
-        1.26.2-${VERSION}
+        ${{ matrix.unbound }}-${VERSION}
     secrets:
       QUAY_TOKEN: ${{ secrets.QUAY_TOKEN }}
