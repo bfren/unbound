@@ -25,7 +25,7 @@ Images are published to `quay.io/bfren-bin/unbound`:
 
 | Tag               | Example           |
 | ----------------- | ----------------- |
-| `UNBOUND-VERSION` | `1.26.2-261106.2` |
+| `UNBOUND-VERSION` | `1.26.2-261106.3` |
 
 `VERSION` is the build date (`yymmdd`) in [VERSION](VERSION) - pin it to get exactly the same files every time. Builds
 from any branch other than `main` add `-dev` to every tag. Each release is also a GitHub release, `v<VERSION>`, on the
@@ -48,7 +48,7 @@ You can find a live example in my [Unbound Docker image](https://github.com/bfre
 
 ```Dockerfile
 # load the Unbound files - they are built for (and dynamically linked against) Alpine 3.24
-FROM quay.io/bfren-bin/unbound:1.26.2-261106.2 AS unbound
+FROM quay.io/bfren-bin/unbound:1.26.2-261106.3 AS unbound
 
 # load the same version of Alpine
 FROM alpine:3.24
