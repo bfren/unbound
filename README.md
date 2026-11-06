@@ -17,21 +17,37 @@ branches keep the version they shipped with, and only backport some security fix
 | ---------- | :---------: |
 | **1.26.2** | &check;     |
 
+Every image is built for `linux/amd64`, `linux/arm64` and `linux/arm/v7`.
+
+## Tags
+
+Images are published to `quay.io/bfren-bin/unbound`:
+
+| Tag               | Example           |
+| ----------------- | ----------------- |
+| `UNBOUND-VERSION` | `1.26.2-261106.2` |
+
+`VERSION` is the build date (`yymmdd`) in [VERSION](VERSION) - pin it to get exactly the same files every
+time. Builds from any branch other than `main` add `-dev` to every tag.
+
 ## Adding a release
 
 1. Download `unbound-X.Y.Z.tar.gz` and `unbound-X.Y.Z.tar.gz.sha256` from
    [NLnet Labs](https://nlnetlabs.nl/projects/unbound/download/) into [src](src).
-2. Update the `UNBOUND` default in [Dockerfile](Dockerfile) and [test.sh](test.sh), the workflow
-   and the matrix above.
-3. Set [VERSION](VERSION) to today's date (`yymmdd`), then run `./test.sh` and the `build-alpine` workflow.
+2. Update the `UNBOUND` default in [Dockerfile](Dockerfile) and [test.sh](test.sh), the `unbound` matrix in the
+   [build workflow](.github/workflows/build-alpine.yml), and the matrix above.
+3. Set [VERSION](VERSION) to today's date (`yymmdd`, or `yymmdd.2`, `.3` and so on for another release that day),
+   then run `./test.sh`.
+4. Push the branch, which builds `-dev` tags to test with, then merge into `main`, which builds the release (it
+   refuses to overwrite a tag that already exists).
 
 ## Usage
 
 You can find a live example in my [Unbound Docker image](https://github.com/bfren/docker-unbound).
 
 ```Dockerfile
-# use tags to load the Unbound files - they are built for (and dynamically linked against) Alpine 3.24
-FROM quay.io/bfren-bin/unbound:1.26.2-261106 AS unbound
+# load the Unbound files - they are built for (and dynamically linked against) Alpine 3.24
+FROM quay.io/bfren-bin/unbound:1.26.2-261106.2 AS unbound
 
 # load the same version of Alpine
 FROM alpine:3.24
@@ -51,3 +67,7 @@ The build scripts in this repository are released under the [MIT licence](https:
 
 Unbound is licensed under the [BSD 3-Clause licence](https://github.com/NLnetLabs/unbound/blob/master/LICENSE).
 The Unbound source in [src](src) and the files in the published images are covered by that licence.
+
+## Copyright
+
+> Copyright (c) 2026 bfren (unless otherwise stated)
