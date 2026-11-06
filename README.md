@@ -27,8 +27,9 @@ Images are published to `quay.io/bfren-bin/unbound`:
 | ----------------- | ----------------- |
 | `UNBOUND-VERSION` | `1.26.2-261106.2` |
 
-`VERSION` is the build date (`yymmdd`) in [VERSION](VERSION) - pin it to get exactly the same files every
-time. Builds from any branch other than `main` add `-dev` to every tag.
+`VERSION` is the build date (`yymmdd`) in [VERSION](VERSION) - pin it to get exactly the same files every time. Builds
+from any branch other than `main` add `-dev` to every tag. Each release is also a GitHub release, `v<VERSION>`, on the
+commit that built it.
 
 ## Adding a release
 
