@@ -19,6 +19,9 @@ jobs:
     strategy:
       matrix:
         unbound: [ "1.26.2" ]
+    permissions:
+      # to create the release
+      contents: write
     uses: bfren/docker/.github/workflows/build-bin.yml@main
     with:
       image: unbound
