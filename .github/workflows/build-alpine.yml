@@ -31,3 +31,17 @@ jobs:
         ${{ matrix.unbound }}-${VERSION}
     secrets:
       QUAY_TOKEN: ${{ secrets.QUAY_TOKEN }}
+
+  # one check whose name does not change, for the ruleset to require - the matrix jobs are named after their versions,
+  # so requiring them means editing the ruleset whenever a version is added or removed
+  build-complete:
+    if: always()
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Check every build passed
+        # needs.build.result is 'success' only if every job in the matrix succeeded
+        run: test "${RESULT}" = "success" || { echo "The build matrix finished with result '${RESULT}'." ; exit 1 ; }
+        env:
+          RESULT: ${{ needs.build.result }}
