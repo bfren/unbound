@@ -1,4 +1,4 @@
-name: build-alpine
+name: build
 
 on:
   push:

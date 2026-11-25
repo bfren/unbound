@@ -36,7 +36,7 @@ commit that built it.
 1. Download `unbound-X.Y.Z.tar.gz` and `unbound-X.Y.Z.tar.gz.sha256` from
    [NLnet Labs](https://nlnetlabs.nl/projects/unbound/download/) into [src](src).
 2. Update the `UNBOUND` default in [Dockerfile](Dockerfile) and [test.sh](test.sh), the `unbound` matrix in the
-   [build workflow](.github/workflows/build-alpine.yml), and the matrix above.
+   [build workflow](.github/workflows/build.yml), and the matrix above.
 3. Set [VERSION](VERSION) to today's date (`yymmdd`, or `yymmdd.2`, `.3` and so on for another release that day),
    then run `./test.sh`.
 4. Push the branch, which builds `-dev` tags to test with, then merge into `main`, which builds the release (it
